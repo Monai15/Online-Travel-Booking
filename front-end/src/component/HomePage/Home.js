@@ -9,7 +9,9 @@ export default function Home() {
   return (
     <div>
       <UserHeader />
-      <div>{<PackageCard /> ? <PackageCard /> : <h1>No Package Data</h1>}</div>
+      <div style={{ marginTop: "50px" }}> {/* เพิ่มระยะห่าง */}
+        {<PackageCard /> ? <PackageCard /> : <h1>No Package Data</h1>}
+      </div>
     </div>
   );
 }
