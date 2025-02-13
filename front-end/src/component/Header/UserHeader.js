@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Menu, Layout } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
+import southtexLogo from "../southtex_logo.png"; // แก้ไข path ให้ถูกต้อง
 import {
   FormOutlined,
   FileTextOutlined,
@@ -10,9 +11,6 @@ import {
   HomeOutlined,
 } from "@ant-design/icons";
 const { Header } = Layout;
-
-// นำเข้าไฟล์รูปภาพ
-import southtexLogo from "../../path/to/southtex_logo.png"; // แก้ไข path ให้ถูกต้อง
 
 export const UserHeader = () => {
   const navigate = useNavigate();
