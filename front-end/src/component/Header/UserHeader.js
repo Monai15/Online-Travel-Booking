@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Menu, Layout } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
-import southtexLogo from "../southtex_logo.png"; // แก้ไข path ให้ถูกต้อง
+import southtexLogo from "../southtex_logo.png";
 import {
   FormOutlined,
   FileTextOutlined,
@@ -10,13 +10,14 @@ import {
   UserOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
+
 const { Header } = Layout;
 
 export const UserHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, logout, data } = useAuth();
-  const [fullName, setFullName] = useState("User"); // ชื่อผู้ใช้
+  const [fullName, setFullName] = useState("User");
 
   // ดึงชื่อผู้ใช้จาก sessionStorage
   useEffect(() => {
@@ -31,92 +32,62 @@ export const UserHeader = () => {
     }
   }, [data]);
 
-  if (!isAuthenticated) {
-    return (
-      <Layout>
-        <Header>
-          <div className="container-fluid">
-            <div className="header">
-              <div className="logo">
-                {/* เพิ่มรูปภาพและข้อความ */}
-                <img
-                  src={southtexLogo}
-                  alt="SOUTHEX Logo"
-                  style={{ height: "40px", marginRight: "10px" }}
-                />
-                <span style={{ color: "white", fontSize: "18px" }}>SOUTHEX</span>
-              </div>
-              <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-                <Menu.Item
-                  key="3"
-                  style={{ marginLeft: "auto" }}
-                  onClick={() => navigate("/login")}
-                >
-                  <UserOutlined /> เข้าสู่ระบบ
+  return (
+    <Layout>
+      <Header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 20px" }}>
+        {/* โลโก้และชื่อ */}
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={southtexLogo}
+            alt="SOUTHEX Logo"
+            style={{ height: "40px", marginRight: "10px" }}
+          />
+          <span style={{ color: "white", fontSize: "18px", fontWeight: "bold" }}>SOUTHEX</span>
+        </div>
+
+        {/* เมนู */}
+        <Menu theme="dark" mode="horizontal" style={{ flex: 1, justifyContent: "flex-end" }}>
+          {!isAuthenticated ? (
+            <>
+              <Menu.Item key="login" onClick={() => navigate("/login")}>
+                <UserOutlined /> เข้าสู่ระบบ
+              </Menu.Item>
+              <Menu.Item key="register" onClick={() => navigate("/login")}>
+                <FormOutlined /> ลงทะเบียน
+              </Menu.Item>
+            </>
+          ) : (
+            <>
+              <Menu.Item
+                key="status"
+                onClick={() => navigate(location.pathname === "/status" ? "/" : "/status")}
+              >
+                {location.pathname === "/status" ? (
+                  <>
+                    <HomeOutlined /> Home
+                  </>
+                ) : (
+                  <>
+                    <FileTextOutlined /> ตรวจสอบสถานะการจองทัวร์
+                  </>
+                )}
+              </Menu.Item>
+              <Menu.SubMenu
+                key="user"
+                title={
+                  <span>
+                    <UserOutlined /> {fullName}
+                  </span>
+                }
+              >
+                <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={logout}>
+                  ออกจากระบบ
                 </Menu.Item>
-                <Menu.Item key="4" onClick={() => navigate("/login")}>
-                  <FormOutlined /> ลงทะเบียน
-                </Menu.Item>
-              </Menu>
-            </div>
-          </div>
-        </Header>
-      </Layout>
-    );
-  } else {
-    return (
-      <Layout>
-        <Header>
-          <div className="container-fluid">
-            <div className="header">
-              <div className="logo">
-                {/* เพิ่มรูปภาพและข้อความ */}
-                <img
-                  src={southtexLogo}
-                  alt="SOUTHEX Logo"
-                  style={{ height: "40px", marginRight: "10px" }}
-                />
-                <span style={{ color: "white", fontSize: "18px" }}>SOUTHEX</span>
-              </div>
-              <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-                <Menu.Item
-                  key="3"
-                  style={{ marginLeft: "auto" }}
-                  onClick={() =>
-                    navigate(location.pathname === "/status" ? "/" : "/status")
-                  }
-                >
-                  {location.pathname === "/status" ? (
-                    <>
-                      <HomeOutlined /> Home
-                    </>
-                  ) : (
-                    <>
-                      <FileTextOutlined /> ตรวจสอบสถานะการจองทัวร์
-                    </>
-                  )}
-                </Menu.Item>
-                <Menu.SubMenu
-                  key="user"
-                  title={
-                    <span>
-                      <UserOutlined /> {fullName}
-                    </span>
-                  }
-                >
-                  <Menu.Item
-                    key="logout"
-                    icon={<LogoutOutlined />}
-                    onClick={logout}
-                  >
-                    ออกจากระบบ
-                  </Menu.Item>
-                </Menu.SubMenu>
-              </Menu>
-            </div>
-          </div>
-        </Header>
-      </Layout>
-    );
-  }
+              </Menu.SubMenu>
+            </>
+          )}
+        </Menu>
+      </Header>
+    </Layout>
+  );
 };
