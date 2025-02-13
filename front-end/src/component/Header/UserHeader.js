@@ -11,6 +11,9 @@ import {
 } from "@ant-design/icons";
 const { Header } = Layout;
 
+// นำเข้าไฟล์รูปภาพ
+import southtexLogo from "../../path/to/southtex_logo.png"; // แก้ไข path ให้ถูกต้อง
+
 export const UserHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,7 +39,15 @@ export const UserHeader = () => {
         <Header>
           <div className="container-fluid">
             <div className="header">
-              <div className="logo" />
+              <div className="logo">
+                {/* เพิ่มรูปภาพและข้อความ */}
+                <img
+                  src={southtexLogo}
+                  alt="SOUTHEX Logo"
+                  style={{ height: "40px", marginRight: "10px" }}
+                />
+                <span style={{ color: "white", fontSize: "18px" }}>SOUTHEX</span>
+              </div>
               <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
                 <Menu.Item
                   key="3"
@@ -60,7 +71,15 @@ export const UserHeader = () => {
         <Header>
           <div className="container-fluid">
             <div className="header">
-              <div className="logo" />
+              <div className="logo">
+                {/* เพิ่มรูปภาพและข้อความ */}
+                <img
+                  src={southtexLogo}
+                  alt="SOUTHEX Logo"
+                  style={{ height: "40px", marginRight: "10px" }}
+                />
+                <span style={{ color: "white", fontSize: "18px" }}>SOUTHEX</span>
+              </div>
               <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
                 <Menu.Item
                   key="3"
