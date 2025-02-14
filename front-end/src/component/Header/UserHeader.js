@@ -13,8 +13,6 @@ import {
 
 const { Header } = Layout;
 
-// นำเข้าไฟล์รูปภาพ
-import southtexLogo from "../../path/to/southtex_logo.png"; // แก้ไข path ให้ถูกต้อง
 
 export const UserHeader = () => {
   const navigate = useNavigate();
